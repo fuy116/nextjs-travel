@@ -1,3 +1,6 @@
+/*
+@author Sean Fu <fuy0116@gmail.com>
+*/
 import Link from "next/link";
 import { 
   Navbar, 
@@ -16,6 +19,22 @@ import {
 } from "flowbite-react";
 
 export default function Home() {
+  const items=[{
+    cover:"/banner/pic1.jpg",
+    name:"西螺大橋",
+    description:"dqwddwqdqdqwqwjdiuhdwhesrfuhesfuhiesfrhuefsrefriuhefrhuerfefaehiu",
+  },
+  {
+    cover:"/banner/pic2.jpg",
+    name:"",
+    description:"",
+  },
+  {
+    cover:"/banner/pic3.jpg",
+    name:"",
+    description:"",
+  }]
+  
   return (
     <>
     <div className="bg-cyan-800">
@@ -42,26 +61,27 @@ export default function Home() {
 
       <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
         <Carousel>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
-          <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
+          <img src="/banner/pic1.jpg" alt="由 Fcuk1203 - 自己的作品, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=129500663" />
+          <img src="/banner/pic2.jpg" alt="由 白襪 - 自己的作品, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=129500844" />
+          <img src="/banner/pic3.jpg" alt="由 LiCheng Shih - https://www.flickr.com/photos/papilioshih/52345866635/, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=129989689" />
+
         </Carousel>
       </div>
 
-      <div className="bg-white">
-        <div className="container mx-auto">
+      <div className="bg-white py-16">
+        <div className="container mx-auto grid grid-cols-4 gap-4">
+          {items.map(item=>
+        
           <Card
             className="max-w-sm"
-            imgAlt="Meaningful alt text for an image that is not purely decorative"
-            imgSrc="/images/blog/image-1.jpg"
+            imgAlt={item.name}
+            imgSrc={item.cover}
           >
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
+              {item.name}
             </h5>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+             {item.description}
             </p>
             <Button>
               Read more
@@ -74,6 +94,7 @@ export default function Home() {
               </svg>
             </Button>
           </Card>
+          )};
         </div>
       </div>
       
