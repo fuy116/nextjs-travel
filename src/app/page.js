@@ -1,7 +1,10 @@
 /*
 @author Sean Fu <fuy0116@gmail.com>
 */
+
+'use client';
 import Link from "next/link";
+import { useState,useEffect } from "react";
 import { 
   Navbar, 
   NavbarBrand, 
@@ -19,22 +22,33 @@ import {
 } from "flowbite-react";
 
 export default function Home() {
-  const items=[{
-    cover:"/banner/pic1.jpg",
-    name:"西螺大橋",
-    description:"dqwddwqdqdqwqwjdiuhdwhesrfuhesfuhiesfrhuefsrefriuhefrhuerfefaehiu",
-  },
-  {
-    cover:"/banner/pic2.jpg",
-    name:"",
-    description:"",
-  },
-  {
-    cover:"/banner/pic3.jpg",
-    name:"",
-    description:"",
-  }]
+  const [items,setItems] = useState([]);
+  const tokenUrl ='https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token';
+  const apiUrl = 'https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot/YulinCounty';
+
+
+  useEffect(()=>{
+    const getToken = async()=>{
+      const clientId =process.env.TDX_CLIENT_ID;
+      const clientSecret=process.env.TDX_CLIENT_SECRET;
+      const tokenParams = new URLSearchParams();
+      tokenParams.append('grant_type','client_credentials');
+      tokenParams.append('client_id',clientId);
+      tokenParams.append('client_secret',clientSecret);
   
+      const tokenRespone = await fetch('https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token',{
+  
+  
+        method:'POST',
+        headers:{
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        body:tokenParams.toString()
+      })
+    }
+
+    
+  });
   return (
     <>
     <div className="bg-cyan-800">
@@ -69,18 +83,18 @@ export default function Home() {
       </div>
 
       <div className="bg-white py-16">
-        <div className="container mx-auto grid grid-cols-4 gap-4">
+        <div className="container mx-auto grid grid-cols-4 gap-4 ">
           {items.map(item=>
         
           <Card
-            className="max-w-sm"
+            className="max-w-sm "
             imgAlt={item.name}
             imgSrc={item.cover}
           >
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {item.name}
             </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
+            <p className="font-normal text-gray-700 dark:text-gray-400 ">
              {item.description}
             </p>
             <Button>
